@@ -107,6 +107,11 @@
             border: 3px solid white;
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             transition: all 0.3s ease;
+            background: linear-gradient(45deg, #ffeb3b, #ff9800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
         }
 
         .avatar {
@@ -289,12 +294,11 @@
             pointer-events: none;
         }
 
-        /* Елка */
+        /* Елка - ОПУЩЕНА НИЖЕ */
         .tree-container {
             position: fixed;
             right: 60px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 60px; /* Изменил с top на bottom */
             display: none;
             z-index: 3;
         }
@@ -483,6 +487,7 @@
             .avatar-container {
                 width: 90px;
                 height: 90px;
+                font-size: 35px;
             }
         }
 
@@ -530,6 +535,7 @@
             .avatar-container {
                 width: 70px;
                 height: 70px;
+                font-size: 30px;
             }
             
             .name {
@@ -573,7 +579,7 @@
             <button id="assignBtn" disabled>🎯 Подобрать подопечного ✨</button>
         </div>
 
-        <!-- Елка -->
+        <!-- Елка - ТЕПЕРЬ ВНИЗУ -->
         <div class="tree-container" id="treeContainer">
             <div class="tree">
                 <div class="tree-part tree-part-1"></div>
@@ -592,16 +598,16 @@
     </div>
 
     <script>
-        // Данные участников с настоящими животными
+        // Данные участников с красивыми эмодзи животных
         const participants = [
-            { name: 'Люда', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Lucy&backgroundColor=ffd9e8' },
-            { name: 'Света', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sophie&backgroundColor=d1eaff' },
-            { name: 'Саша', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alex&backgroundColor=ffdfbf' },
-            { name: 'Сережа', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sergei&backgroundColor=c9f7c8' },
-            { name: 'Марина', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Marina&backgroundColor=ffe6cc' },
-            { name: 'Оля', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Olga&backgroundColor=e6ccff' },
-            { name: 'Женя', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Jenya&backgroundColor=ccf2ff' },
-            { name: 'Алина', avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Alina&backgroundColor=ffcccc' }
+            { name: 'Люда', emoji: '🐻' },  // Медведь
+            { name: 'Света', emoji: '🐰' }, // Кролик
+            { name: 'Саша', emoji: '🐼' },  // Панда
+            { name: 'Сережа', emoji: '🐯' }, // Тигр
+            { name: 'Марина', emoji: '🦊' }, // Лиса
+            { name: 'Оля', emoji: '🐨' },   // Коала
+            { name: 'Женя', emoji: '🐶' },  // Собака
+            { name: 'Алина', emoji: '🐱' }  // Кот
         ];
 
         // Состояние приложения
@@ -659,7 +665,7 @@
             });
         }
 
-        // Отрисовка участников В ОДНУ СТРОКУ
+        // Отрисовка участников В ОДНУ СТРОКУ с эмодзи животных
         function renderParticipants() {
             const container = document.getElementById('participantsContainer');
             container.innerHTML = '';
@@ -669,7 +675,7 @@
                 participantDiv.className = 'participant';
                 participantDiv.innerHTML = `
                     <div class="avatar-container" data-index="${index}">
-                        <img src="${person.avatar}" alt="${person.name}" class="avatar">
+                        ${person.emoji}
                         <div class="hat">
                             <div class="pom-pom"></div>
                         </div>
@@ -726,7 +732,7 @@
             }
         }
 
-        // Подготовка к Новому году - УЛУЧШЕННАЯ ВЕРСИЯ
+        // Подготовка к Новому году
         function prepareForNewYear() {
             if (state.isPrepared) return;
 
@@ -749,19 +755,15 @@
                 }, index * 200 + 500);
             });
 
-            // 4. Показываем и анимируем елку
+            // 4. Показываем и анимируем елку (теперь внизу)
             const treeContainer = document.getElementById('treeContainer');
             treeContainer.style.display = 'block';
             createLights();
 
-            // 5. Включаем музыку (после пользовательского взаимодействия)
-            const bgMusic = document.getElementById('bgMusic');
-            // Музыка включится при следующем клике пользователя
-
-            // 6. Делаем кнопку подготовки неактивной
+            // 5. Делаем кнопку подготовки неактивной
             document.getElementById('prepareBtn').disabled = true;
             
-            // 7. Запускаем дополнительные анимации
+            // 6. Запускаем дополнительные анимации
             createFireworks();
         }
 
